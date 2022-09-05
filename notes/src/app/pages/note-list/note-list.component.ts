@@ -21,15 +21,15 @@ export class NoteListComponent implements OnInit {
     this.noteService.delete(id);
   }
   filter(query: string) {
-    console.log(query);
-    
+    console.log(query.length);
+
     query = query.toLowerCase().trim();
     let allResults: Note[] = new Array<Note>();
     let terms: string[] = query.split('');
 
     terms = this.removeDuplicate(terms);
 
-    terms.forEach(term => {
+    terms.forEach((term) => {
       let results: Note[] = this.releventNotes(term);
       allResults = [...allResults, ...results];
     });
@@ -44,16 +44,16 @@ export class NoteListComponent implements OnInit {
   }
   releventNotes(query: any): Array<Note> {
     query = query.toLowerCase().trim();
-    let releventNotes = this.notes.filter(note => {
+    let releventNotes = this.notes.filter((note) => {
       if (note.title && note.title.toLowerCase().includes(query)) {
         return true;
       }
       if (note.body && note.body.toLowerCase().includes(query)) {
         return true;
-      }else{
-      return this.filteredNotes = this.notes;}
+      } else {
+        return false;
+      }
     });
     return releventNotes;
-    
   }
 }
