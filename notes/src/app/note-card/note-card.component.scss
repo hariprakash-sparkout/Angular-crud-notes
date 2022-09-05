@@ -30,7 +30,7 @@
 
       .fade-out-truncation{
         position: absolute;
-
+        pointer-events: none;
         bottom: 0;
         height: 50%;
         width: 100%;
