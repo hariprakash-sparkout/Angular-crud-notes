@@ -1,17 +1,24 @@
 <div class="main-container">
-    <div class="search-bar-container">
-        <div class="field">
-            <p class="control has-icons-left">
-              <input class="input" type="text" placeholder="filter">
-              <span class="icon is-medium is-left">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </span>
-            </p>
-          </div>
+  <div class="search-bar-container">
+    <div class="field">
+      <p class="control has-icons-left">
+        <input class="input" type="text" placeholder="filter" />
+        <span class="icon is-medium is-left">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </span>
+      </p>
     </div>
-    <div class="note-list">
-        <app-note-card title="Crad Title" body="body Content"></app-note-card>
-        <app-note-card></app-note-card>
-        <app-note-card></app-note-card>
-    </div>
+  </div>
+  <div class="note-list">
+    <app-note-card
+      *ngFor="let note of notes;let i = index"
+      [link]="i.toString()"
+      (delete)="deleteNote(i)"
+      [title]="note.title"
+      [body]="note.body"
+    ></app-note-card>
+  </div>
+  <button class="button floating-add-button is-primary" routerLink="new">
+    + Add Notes
+  </button>
 </div>

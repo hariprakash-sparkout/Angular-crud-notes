@@ -8,8 +8,17 @@
 }
 .note-list{
     margin-top: 20px;
+    margin-bottom: 70px;
 }
 app-note-card{
     display: block;
     margin-bottom: 25px;
+}
+.floating-add-button{
+    position: fixed;
+   bottom: 0;
+   width: 500px;
+   border-radius: 0;
+   background-color: rgb(94, 25, 212);
+   margin-bottom: 50px;
 }
