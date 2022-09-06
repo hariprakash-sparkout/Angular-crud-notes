@@ -7,6 +7,9 @@ import { HeaderComponent } from './pages/header/header.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { SideBarComponent } from './pages/side-bar/side-bar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { SideBarComponent } from './pages/side-bar/side-bar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,11 +14,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+          <tr *ngFor="let row of allDetails">
+            <td>{{row.name}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.contact}}</td>
+            <td>{{row.salary}}</td>
             <td>
               <button class="button is-warning m-2">Edit</button>
               <button class="button is-danger m-2">Delete</button>

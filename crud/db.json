@@ -1,0 +1,51 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "name": "a",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    },
+    {
+      "id": 3,
+      "name": "",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    },
+    {
+      "id": 4,
+      "name": "",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    },
+    {
+      "id": 5,
+      "name": "",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    },
+    {
+      "id": 6,
+      "name": "",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    },
+    {
+      "id": 7,
+      "name": "",
+      "contact": "",
+      "email": "",
+      "salary": ""
+    }
+  ]
+}
