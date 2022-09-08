@@ -15,6 +15,8 @@ export class EditUserComponent implements OnInit {
   formValue!: FormGroup;
   employeeModalObj: EmployeeModal = new EmployeeModal();
   allDetails!: any;
+  showSave !:boolean;
+  showUpdate !:boolean;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -24,7 +26,8 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log(this.api.isNew);
+    this.showSave = this.api.isShowSave
+    this.showUpdate = this.api.isShowUpdate
     this.formValue = this.formbuilder.group({
       name: [''],
       email: [''],
@@ -40,24 +43,27 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  async postDetails() {
+   postDetails() {
     this.employeeModalObj.name = this.formValue.value.name;
     this.employeeModalObj.contact = this.formValue.value.number;
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
-    let isNew = this.api.isNew;
-    if (isNew == false) {
-      this.api.postDetails(this.employeeModalObj).subscribe((res) => {
-        console.log(res);
-      });
-    } else {
-      let id = this.api.idDetails
-      this.api
-        .updateDetails(id, this.employeeModalObj)
-        .subscribe((res) => {
-          console.log(res);
-        });
-    }
-  }
-}
 
+    this.api.postDetails(this.employeeModalObj).subscribe((res) => {
+      console.log(res);
+    });
+  }
+async updateDetails(){
+    this.employeeModalObj.name = this.formValue.value.name;
+    this.employeeModalObj.contact = this.formValue.value.number;
+    this.employeeModalObj.email = this.formValue.value.email;
+    this.employeeModalObj.salary = this.formValue.value.salary;
+    let id = await this.api.idDetails
+    this.api.updateDetails(id,this.employeeModalObj).subscribe((res)=>{
+      console.log(res)
+     
+    })
+     this.api.getDetails()
+  }
+
+}

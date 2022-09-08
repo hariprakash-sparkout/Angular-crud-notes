@@ -7,8 +7,10 @@ import { identifierName } from '@angular/compiler';
 })
 export class ApiService {
   constructor(private http: HttpClient) {}
-  idDetails: any;
-  isNew:any=true;
+  idDetails: any=0;
+  isNew:any;
+  isShowSave !: boolean;
+  isShowUpdate !: boolean;
   postDetails(data: any) {
     return this.http.post<any>('http://localhost:3000/posts', data).pipe(
       map((res: any) => {
@@ -24,7 +26,7 @@ export class ApiService {
     );
   }
   updateDetails(id: any, data: any) {
-    return this.http.put<any>('http://localhost:3000/posts/' + 1, data).pipe(
+    return this.http.patch<any>('http://localhost:3000/posts/' + id, data).pipe(
       map((res: any) => {
         return res;
       })
@@ -38,10 +40,12 @@ export class ApiService {
     );
   }
   editUsers(id: number) {
+    console.log('id',id)
     this.idDetails = id;
+   
   }
   getEditUserDetails() {
-    this.isNew=false;
+    console.log(this.idDetails)
     return this.http
       .get<any>('http://localhost:3000/posts/' + this.idDetails)
       .pipe((res: any) => {

@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
     
   }
   addDetails(){
-    this.api.isNew =true;
+    this.api.idDetails=null;
+    this.api.isShowSave = true;
+    this.api.isShowUpdate = false;
   }
 }

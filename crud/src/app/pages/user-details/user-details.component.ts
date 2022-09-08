@@ -27,7 +27,9 @@ export class UserDetailsComponent implements OnInit {
   }
   editUser(row: any) {
     console.log(row.id);
-    this.api.editUsers(row.id)
+    this.api.editUsers(row.id);
+    this.api.isShowSave = false;
+    this.api.isShowUpdate = true;
     
   }
    

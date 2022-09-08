@@ -1,74 +1,105 @@
 <div class="edit-user-layout">
-    <form [formGroup]="formValue" class="form-content">
-        <div class="field">
-            <label class="label">Name</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input" formControlName="name" type="text" placeholder="Name" ngModel required>
-            </div>
-          </div>
-          
-          
-          <div class="field">
-            <label class="label">Contact</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input" type="number" formControlName="number" placeholder="Contact  number ex:999xxxxxx" required/>
-              <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-            </div>
-            <!-- <p class="help is-success">This username is available</p> -->
-          </div>
-          
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input" formControlName="email" type="email" placeholder="Email input" required/>
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
-            </div>
-            <!-- <p class="help is-danger">This email is invalid</p> -->
-          </div>
+  <form [formGroup]="formValue" class="form-content">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          formControlName="name"
+          type="text"
+          placeholder="Name"
+          ngModel
+          required
+        />
+      </div>
+    </div>
 
-          
-          <div class="field">
-            <label class="label">Salary</label>
-            <div class="control has-icons-left has-icons-right">
-              <input class="input" formControlName="salary" type="number" placeholder="Salary" required/>
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-              <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
-            </div>
-            <!-- <p class="help is-danger">This email is invalid</p> -->
-          </div>
-          
-          <div class="field">
-            <div class="control">
-              <label class="checkbox">
-                <input type="checkbox" required>
-                I agree to the <a href="#">terms and conditions</a>
-              </label>
-            </div>
-          </div>
-          
-        
-          
-          <div class="field is-grouped">
-            <div class="control">
-              <button type="submit" class="button is-link" (click)="postDetails()" routerLink="/" >Submit</button>
-            </div>
-            <div class="control">
-              <button routerLink="/" class="button is-link is-light">Cancel</button>
-            </div>
-          </div>
-    </form>
+    <div class="field">
+      <label class="label">Contact</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          type="number"
+          formControlName="number"
+          placeholder="Contact  number ex:999xxxxxx"
+          required
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-user"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-check"></i>
+        </span>
+      </div>
+      <!-- <p class="help is-success">This username is available</p> -->
+    </div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          formControlName="email"
+          type="email"
+          placeholder="Email input"
+          required
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <!-- <p class="help is-danger">This email is invalid</p> -->
+    </div>
+
+    <div class="field">
+      <label class="label">Salary</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          class="input"
+          formControlName="salary"
+          type="number"
+          placeholder="Salary"
+          required
+        />
+        <span class="icon is-small is-left">
+          <i class="fas fa-envelope"></i>
+        </span>
+        <span class="icon is-small is-right">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+      </div>
+      <!-- <p class="help is-danger">This email is invalid</p> -->
+    </div>
+
+    
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button *ngIf="showSave"
+          type="submit"
+          class="button is-link"
+          (click)="postDetails()"
+          routerLink="/"
+        >
+          save
+        </button>
+      </div>
+      <div class="control">
+        <button *ngIf="showUpdate"
+          type="submit"
+          class="button is-link"
+          (click)="updateDetails()"
+          routerLink="/"
+        >
+          Update
+        </button>
+      </div>
+      <div class="control">
+        <button routerLink="/" class="button is-link is-light">Cancel</button>
+      </div>
+    </div>
+  </form>
 </div>
