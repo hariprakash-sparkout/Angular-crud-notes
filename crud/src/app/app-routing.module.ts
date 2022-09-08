@@ -8,7 +8,7 @@ const routes: Routes = [
   {path:'',component:HeaderComponent,children:[
     {path:'',component:UserDetailsComponent},
     {path:'new',component:EditUserComponent},
-    {path:'id',component:EditUserComponent}
+    {path:':id',component:EditUserComponent}
   ]}
   
 ];

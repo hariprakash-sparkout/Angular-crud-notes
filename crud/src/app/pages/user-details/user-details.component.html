@@ -14,14 +14,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of allDetails">
+          <tr *ngFor="let row of allDetails;let i = index" >
             <td>{{row.name}}</td>
             <td>{{row.email}}</td>
             <td>{{row.contact}}</td>
             <td>{{row.salary}}</td>
             <td>
-              <button class="button is-warning m-2">Edit</button>
-              <button class="button is-danger m-2">Delete</button>
+              <button [routerLink]="i.toString()"  (click)="editUser(row)" class="button is-warning m-2">Edit</button>
+              <button (click)="deleteUser(row)" class="button is-danger m-2">Delete</button>
             </td>
           </tr>
         </tbody>
