@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormGroup } from '@angular/forms';
+import { Form, FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { EmployeeModal } from './edit-user.modal';
 import { UserDetailsComponent } from '../user-details/user-details.component';
-import { ActivatedRoute, Params, Route, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  Params,
+  Route,
+  Router,
+  RouterLink,
+} from '@angular/router';
+import { Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
@@ -15,8 +22,9 @@ export class EditUserComponent implements OnInit {
   formValue!: FormGroup;
   employeeModalObj: EmployeeModal = new EmployeeModal();
   allDetails!: any;
-  showSave !:boolean;
-  showUpdate !:boolean;
+  showSave!: boolean;
+  showUpdate!: boolean;
+  isValid!: boolean;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -26,14 +34,15 @@ export class EditUserComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.showSave = this.api.isShowSave
-    this.showUpdate = this.api.isShowUpdate
+    this.showSave = this.api.isShowSave;
+    this.showUpdate = this.api.isShowUpdate;
     this.formValue = this.formbuilder.group({
       name: [''],
       email: [''],
       number: [''],
       salary: [''],
     });
+    console.log(this.formValue.valid);
     this.api.getEditUserDetails().subscribe((res: any) => {
       console.log(res);
       this.formValue.controls['name'].setValue(res.name);
@@ -43,7 +52,7 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-   postDetails() {
+  postDetails() {
     this.employeeModalObj.name = this.formValue.value.name;
     this.employeeModalObj.contact = this.formValue.value.number;
     this.employeeModalObj.email = this.formValue.value.email;
@@ -52,18 +61,31 @@ export class EditUserComponent implements OnInit {
     this.api.postDetails(this.employeeModalObj).subscribe((res) => {
       console.log(res);
     });
+    console.log(this.formValue.valid);
+    this.router.navigateByUrl('/');
   }
-async updateDetails(){
-    this.employeeModalObj.name = this.formValue.value.name;
+  async updateDetails() {
+    this.employeeModalObj.name = this.formValue.value.name,Validators.compose([
+      Validators.maxLength(25),
+      Validators.minLength(5),
+      Validators.required,
+      Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
+    ]);
     this.employeeModalObj.contact = this.formValue.value.number;
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
-    let id = await this.api.idDetails
-    this.api.updateDetails(id,this.employeeModalObj).subscribe((res)=>{
-      console.log(res)
-     
-    })
-     this.api.getDetails()
+    let id = await this.api.idDetails;
+    this.api.updateDetails(id, this.employeeModalObj).subscribe((res) => {
+      console.log(res);
+    });
+
+    this.router.navigateByUrl('/');
   }
 
+  formValidation(control: FormControl) {
+    if (control.value != null && control.value.indexOf(' ') != -1) {
+      return { noSpaceAllowed: true };
+    }
+    return null;
+  }
 }
