@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { map } from 'rxjs';
-import { identifierName } from '@angular/compiler';
+
 import { Note } from './api.module';
 @Injectable({
   providedIn: 'root',
@@ -15,32 +15,41 @@ export class ApiService {
   isShowUpdate !: boolean;
   
   postDetails(data: any) {
-    return this.http.post<any>('http://localhost:3000/posts', data).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    // return this.http.post<any>('http://localhost:3000/posts', data).pipe(
+    //   map((res: any) => {
+    //     return res;
+    //   })
+    // );
+    this.form.push(data)
   }
   getDetails() {
-    return this.http.get<any>('http://localhost:3000/posts').pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    return this.form
+    // return this.http.get<any>('http://localhost:3000/posts').pipe(
+    //   map((res: any) => {
+    //     return res;
+    //   })
+    // );
   }
   updateDetails(id: any, data: any) {
-    return this.http.patch<any>('http://localhost:3000/posts/' + id, data).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    let form =this.form[id]
+    form.name = data.name;
+    form.email = data.email;
+    form.contact = data.contact;
+    form.salary = data.salary
+    return this.form[id]
+    // return this.http.patch<any>('http://localhost:3000/posts/' + id, data).pipe(
+    //   map((res: any) => {
+    //     return res;
+    //   })
+    // );
   }
   deleteDetails(id: number) {
-    return this.http.delete<any>('http://localhost:3000/posts/' + id).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+    return this.form.splice(id,1)
+    // return this.http.delete<any>('http://localhost:3000/posts/' + id).pipe(
+    //   map((res: any) => {
+    //     return res;
+    //   })
+    // );
   }
   editUsers(id: number) {
     console.log('id',id)
@@ -48,12 +57,14 @@ export class ApiService {
    
   }
   getEditUserDetails() {
-    console.log(this.idDetails)
-    return this.http
-      .get<any>('http://localhost:3000/posts/' + this.idDetails)
-      .pipe((res: any) => {
-        return res;
-      });
+    return this.form[this.idDetails]
+  //   console.log(this.idDetails)
+  //   return this.http
+  //     .get<any>('http://localhost:3000/posts/' + this.idDetails)
+  //     .pipe((res: any) => {
+  //       return res;
+  //     });
       
+  // }
   }
 }

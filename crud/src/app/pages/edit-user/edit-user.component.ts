@@ -50,13 +50,12 @@ export class EditUserComponent implements OnInit {
       salary: ['', [Validators.required, Validators.pattern('[0-9]{3,}')]],
     });
     console.log(this.formValue.valid);
-    this.api.getEditUserDetails().subscribe((res: any) => {
-      console.log(res);
-      this.formValue.controls['name'].setValue(res.name);
-      this.formValue.controls['email'].setValue(res.email);
-      this.formValue.controls['number'].setValue(res.contact);
-      this.formValue.controls['salary'].setValue(res.salary);
-    });
+    let res:any =  this.api.getEditUserDetails();
+
+    this.formValue.controls['name'].setValue(res.name);
+    this.formValue.controls['email'].setValue(res.email);
+    this.formValue.controls['number'].setValue(res.contact);
+    this.formValue.controls['salary'].setValue(res.salary);
   }
 
   postDetails() {
@@ -65,9 +64,10 @@ export class EditUserComponent implements OnInit {
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
 
-    this.api.postDetails(this.employeeModalObj).subscribe((res) => {
-      console.log(res);
-    });
+    this.api.postDetails(this.employeeModalObj);
+    // .subscribe((res) => {
+    //   console.log(res);
+    // });
     console.log(this.formValue.valid);
     this.router.navigateByUrl('/');
   }
@@ -77,9 +77,10 @@ export class EditUserComponent implements OnInit {
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
     let id = await this.api.idDetails;
-    this.api.updateDetails(id, this.employeeModalObj).subscribe((res) => {
-      console.log(res);
-    });
+    this.api.updateDetails(id, this.employeeModalObj);
+    // .subscribe((res) => {
+    //   console.log(res);
+    // });
 
     this.router.navigateByUrl('/');
   }

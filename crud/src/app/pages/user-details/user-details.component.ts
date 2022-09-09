@@ -15,15 +15,18 @@ export class UserDetailsComponent implements OnInit {
     this.getAllDetails();
   }
   getAllDetails() {
-    this.api.getDetails().subscribe((res) => {
+    let res = this.api.getDetails()
+    // this.api.getDetails().subscribe((res) => {
       this.allDetails = res;
-    });
+    // });
   }
   deleteUser(row: any) {
-    this.api.deleteDetails(row.id).subscribe((res) => {
-      alert('user Removed');
-      this.getAllDetails();
-    });
+    this.api.deleteDetails(row.id)
+    // .subscribe((res) => {
+    //   alert('user Removed');
+    //   this.getAllDetails();
+    // });
+    this.getAllDetails();
   }
   editUser(row: any) {
     console.log(row.id);
