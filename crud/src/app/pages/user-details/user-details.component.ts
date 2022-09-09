@@ -14,24 +14,27 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getAllDetails();
   }
+
+  //Get all form details
   getAllDetails() {
     this.api.getDetails().subscribe((res) => {
       this.allDetails = res;
     });
   }
+
+  //deleting the particular form data using row index
   deleteUser(row: any) {
     this.api.deleteDetails(row.id).subscribe((res) => {
       alert('user Removed');
       this.getAllDetails();
     });
   }
+
+  //edit the particular form data using row index
   editUser(row: any) {
     console.log(row.id);
     this.api.editUsers(row.id);
     this.api.isShowSave = false;
     this.api.isShowUpdate = true;
-    
   }
-   
 }
-

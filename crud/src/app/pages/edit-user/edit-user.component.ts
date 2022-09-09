@@ -1,17 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { EmployeeModal } from './edit-user.modal';
-
-import {
-  ActivatedRoute,
-  Params,
-  Route,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
@@ -29,8 +22,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private api: ApiService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -71,6 +63,7 @@ export class EditUserComponent implements OnInit {
     console.log(this.formValue.valid);
     this.router.navigateByUrl('/');
   }
+
   async updateDetails() {
     this.employeeModalObj.name = this.formValue.value.name;
     this.employeeModalObj.contact = this.formValue.value.number;
