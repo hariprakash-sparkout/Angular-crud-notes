@@ -3,15 +3,19 @@
     <div class="field">
       <label class="label">Name</label>
       <div class="control has-icons-left has-icons-right">
-        <input 
+        <input
           class="input"
           formControlName="name"
           type="text"
           placeholder="Name"
-          ngModel
-          required
         />
       </div>
+      <span
+        class="has-text-danger"
+        *ngIf="formValue.get('name')?.touched && formValue.get('name')?.errors"
+      >
+        Name is required(min1)
+      </span>
     </div>
 
     <div class="field">
@@ -22,13 +26,20 @@
           type="number"
           formControlName="number"
           placeholder="Contact  number ex:999xxxxxx"
-          required
         />
         <span class="icon is-small is-left">
           <i class="fas fa-user"></i>
         </span>
         <span class="icon is-small is-right">
           <i class="fas fa-check"></i>
+        </span>
+        <span
+          class="has-text-danger"
+          *ngIf="
+            formValue.get('number')?.touched && formValue.get('number')?.errors
+          "
+        >
+          Please Enter valid number(10 digit)
         </span>
       </div>
       <!-- <p class="help is-success">This username is available</p> -->
@@ -50,6 +61,14 @@
         <span class="icon is-small is-right">
           <i class="fas fa-exclamation-triangle"></i>
         </span>
+        <span
+          class="has-text-danger"
+          *ngIf="
+            formValue.get('email')?.touched && formValue.get('email')?.errors
+          "
+        >
+          Please enter valid mail('ex:@gmail.com')
+        </span>
       </div>
       <!-- <p class="help is-danger">This email is invalid</p> -->
     </div>
@@ -64,35 +83,43 @@
           placeholder="Salary"
           required
         />
+        <span
+        class="has-text-danger"
+        *ngIf="
+          formValue.get('salary')?.touched && formValue.get('salary')?.errors
+        "
+      >
+      </span>
         <span class="icon is-small is-left">
           <i class="fas fa-envelope"></i>
         </span>
         <span class="icon is-small is-right">
           <i class="fas fa-exclamation-triangle"></i>
         </span>
+       
       </div>
       <!-- <p class="help is-danger">This email is invalid</p> -->
     </div>
 
-    
-
     <div class="field is-grouped">
       <div class="control">
-        <button *ngIf="showSave"
+        <button
+          *ngIf="showSave"
           type="submit"
           class="button is-link"
           (click)="postDetails()"
-          
+          [disabled]="!formValue.valid"
         >
           save
         </button>
       </div>
       <div class="control">
-        <button *ngIf="showUpdate"
+        <button
+          *ngIf="showUpdate"
           type="submit"
           class="button is-link"
           (click)="updateDetails()"
-          
+          [disabled]="!formValue.valid"
         >
           Update
         </button>

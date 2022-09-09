@@ -2,7 +2,7 @@
   "posts": [
     {
       "id": 1,
-      "name": "Hari",
+      "name": "Hari111",
       "contact": 1234567890,
       "email": "hari@gmail.com",
       "salary": 12345
@@ -13,6 +13,20 @@
       "contact": 123456789,
       "email": "asdfgh@gmail.com",
       "salary": 1235678
+    },
+    {
+      "id": 3,
+      "name": "aa",
+      "contact": 1111111111,
+      "email": "a@gmail.com",
+      "salary": 1
+    },
+    {
+      "id": 4,
+      "name": "a1",
+      "contact": 1111111111,
+      "email": "1@gm",
+      "salary": 1
     }
   ]
 }

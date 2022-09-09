@@ -3,7 +3,7 @@ import { Form, FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { EmployeeModal } from './edit-user.modal';
-import { UserDetailsComponent } from '../user-details/user-details.component';
+
 import {
   ActivatedRoute,
   Params,
@@ -37,10 +37,25 @@ export class EditUserComponent implements OnInit {
     this.showSave = this.api.isShowSave;
     this.showUpdate = this.api.isShowUpdate;
     this.formValue = this.formbuilder.group({
-      name: [''],
-      email: [''],
-      number: [''],
-      salary: [''],
+      name: [
+        '',
+        [Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30)]
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      number: [
+        '',
+        [Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10)]
+      ],
+      salary: [
+        '',
+        [Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30)]
+      ],
     });
     console.log(this.formValue.valid);
     this.api.getEditUserDetails().subscribe((res: any) => {
@@ -65,12 +80,7 @@ export class EditUserComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
   async updateDetails() {
-    this.employeeModalObj.name = this.formValue.value.name,Validators.compose([
-      Validators.maxLength(25),
-      Validators.minLength(5),
-      Validators.required,
-      Validators.pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$'), // <-- Allow letters and numbers only
-    ]);
+    this.employeeModalObj.name = this.formValue.value.name;
     this.employeeModalObj.contact = this.formValue.value.number;
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
