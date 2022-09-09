@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { map } from 'rxjs';
 import { identifierName } from '@angular/compiler';
+import { Note } from './api.module';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
+  form:Note[]=new Array<Note>();
   constructor(private http: HttpClient) {}
   idDetails: any=0;
   isNew:any;
   isShowSave !: boolean;
   isShowUpdate !: boolean;
+  
   postDetails(data: any) {
     return this.http.post<any>('http://localhost:3000/posts', data).pipe(
       map((res: any) => {
