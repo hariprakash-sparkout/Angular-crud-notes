@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit,OnDestroy } from '@angular/core';
+
 import { ApiService } from 'src/app/shared/api.service';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit ,OnDestroy{
   allDetails!: any;
   rows: any;
   constructor(private api: ApiService) {}
@@ -36,5 +36,9 @@ export class UserDetailsComponent implements OnInit {
     this.api.editUsers(row.id);
     this.api.isShowSave = false;
     this.api.isShowUpdate = true;
+  }
+  ngOnDestroy():any {
+    this.allDetails.unsubscribe()
+    // this.deleteUser.unsubscribe()
   }
 }

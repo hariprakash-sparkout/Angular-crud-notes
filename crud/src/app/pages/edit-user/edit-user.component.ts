@@ -5,13 +5,14 @@ import { ApiService } from 'src/app/shared/api.service';
 import { EmployeeModal } from './edit-user.modal';
 import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
+import { OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
 })
-export class EditUserComponent implements OnInit {
+export class EditUserComponent implements OnInit,OnDestroy {
   formValue!: FormGroup;
   employeeModalObj: EmployeeModal = new EmployeeModal();
   allDetails!: any;
@@ -69,8 +70,8 @@ export class EditUserComponent implements OnInit {
     this.employeeModalObj.contact = this.formValue.value.number;
     this.employeeModalObj.email = this.formValue.value.email;
     this.employeeModalObj.salary = this.formValue.value.salary;
-    let id = await this.api.idDetails;
-    this.api.updateDetails(id, this.employeeModalObj).subscribe((res) => {
+   
+    this.api.updateDetails(await this.api.idDetails, this.employeeModalObj).subscribe((res) => {
       console.log(res);
     });
 
@@ -82,5 +83,9 @@ export class EditUserComponent implements OnInit {
       return { noSpaceAllowed: true };
     }
     return null;
+  }
+
+  async ngOnDestroy() {
+    this.api.updateDetails(await this.api.idDetails, this.employeeModalObj).unsubscribe()
   }
 }
