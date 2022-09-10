@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
-import { SideBarComponent } from './pages/side-bar/side-bar.component';
+// import { SideBarComponent } from './pages/side-bar/side-bar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { LifecycleComponent } from './pages/lifecycle/lifecycle.component';
+// import { LifecycleComponent } from './pages/lifecycle/lifecycle.component';
 
 
 @NgModule({
@@ -18,7 +20,8 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     UserDetailsComponent,
     EditUserComponent,
-    SideBarComponent
+    LifecycleComponent
+    
   ],
   imports: [
     BrowserModule,
