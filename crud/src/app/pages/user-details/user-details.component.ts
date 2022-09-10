@@ -1,11 +1,13 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-
 import { ApiService } from 'src/app/shared/api.service';
+
+
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
+
 export class UserDetailsComponent implements OnInit ,OnDestroy{
   allDetails!: any;
   rows: any;
@@ -34,11 +36,12 @@ export class UserDetailsComponent implements OnInit ,OnDestroy{
   editUser(row: any) {
     console.log(row.id);
     this.api.editUsers(row.id);
-    this.api.isShowSave = false;
-    this.api.isShowUpdate = true;
+    this.api.isShowSaveButton = false;
+    this.api.isShowUpdateButton = true;
   }
+
   ngOnDestroy():any {
     this.allDetails.unsubscribe()
-    // this.deleteUser.unsubscribe()
+
   }
 }

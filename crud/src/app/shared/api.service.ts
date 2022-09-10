@@ -8,8 +8,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
   idDetails: any=0;
   isNew:any;
-  isShowSave !: boolean;
-  isShowUpdate !: boolean;
+  isShowSaveButton !: boolean;
+  isShowUpdateButton !: boolean;
 
   //post form data to the API
   postDetails(data: any) {

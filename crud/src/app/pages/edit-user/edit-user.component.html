@@ -1,5 +1,5 @@
 <div class="edit-user-layout">
-  <form [formGroup]="formValue" class="form-content">
+  <form [formGroup]="userFormDetails" class="form-content">
     <div class="field">
       <label class="label">Name</label>
       <div class="control has-icons-left has-icons-right">
@@ -12,7 +12,7 @@
       </div>
       <span
         class="has-text-danger"
-        *ngIf="formValue.get('name')?.touched && formValue.get('name')?.errors"
+        *ngIf="userFormDetails.get('name')?.touched && userFormDetails.get('name')?.errors"
       >
         Name is required(min1)
       </span>
@@ -36,7 +36,7 @@
         <span
           class="has-text-danger"
           *ngIf="
-            formValue.get('number')?.touched && formValue.get('number')?.errors
+            userFormDetails.get('number')?.touched && userFormDetails.get('number')?.errors
           "
         >
           Please Enter valid number(10 digit)
@@ -64,7 +64,7 @@
         <span
           class="has-text-danger"
           *ngIf="
-            formValue.get('email')?.touched && formValue.get('email')?.errors
+            userFormDetails.get('email')?.touched && userFormDetails.get('email')?.errors
           "
         >
           Please enter valid mail('ex:@gmail.com')
@@ -86,7 +86,7 @@
         <span
           class="has-text-danger"
           *ngIf="
-            formValue.get('salary')?.touched && formValue.get('salary')?.errors
+            userFormDetails.get('salary')?.touched && userFormDetails.get('salary')?.errors
           "
         >Enter min 3 char
         </span>
@@ -103,22 +103,22 @@
     <div class="field is-grouped">
       <div class="control">
         <button
-          *ngIf="showSave"
+          *ngIf="showSaveButton"
           type="submit"
           class="button is-link"
           (click)="postDetails()"
-          [disabled]="!formValue.valid"
+          [disabled]="!userFormDetails.valid"
         >
           save
         </button>
       </div>
       <div class="control">
         <button
-          *ngIf="showUpdate"
+          *ngIf="showUpdateButton"
           type="submit"
           class="button is-link"
           (click)="updateDetails()"
-          [disabled]="!formValue.valid"
+          [disabled]="!userFormDetails.valid"
         >
           Update
         </button>

@@ -12,13 +12,14 @@ import { OnDestroy } from '@angular/core';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
 })
+
 export class EditUserComponent implements OnInit,OnDestroy {
-  formValue!: FormGroup;
+  userFormDetails!: FormGroup;
   employeeModalObj: EmployeeModal = new EmployeeModal();
   allDetails!: any;
-  showSave!: boolean;
-  showUpdate!: boolean;
-  isValid!: boolean;
+  showSaveButton!: boolean;
+  showUpdateButton!: boolean;
+  isFormValid!: boolean;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -27,9 +28,9 @@ export class EditUserComponent implements OnInit,OnDestroy {
   ) {}
 
   async ngOnInit() {
-    this.showSave = this.api.isShowSave;
-    this.showUpdate = this.api.isShowUpdate;
-    this.formValue = this.formbuilder.group({
+    this.showSaveButton = this.api.isShowSaveButton;
+    this.showUpdateButton = this.api.isShowUpdateButton;
+    this.userFormDetails = this.formbuilder.group({
       name: [
         '',
         [
@@ -42,34 +43,39 @@ export class EditUserComponent implements OnInit,OnDestroy {
       number: ['', [Validators.required, Validators.pattern('[0-9]{10,}')]],
       salary: ['', [Validators.required, Validators.pattern('[0-9]{3,}')]],
     });
-    console.log(this.formValue.valid);
+    
+    //getting existing details from the API using id
     this.api.getEditUserDetails().subscribe((res: any) => {
       console.log(res);
-      this.formValue.controls['name'].setValue(res.name);
-      this.formValue.controls['email'].setValue(res.email);
-      this.formValue.controls['number'].setValue(res.contact);
-      this.formValue.controls['salary'].setValue(res.salary);
+
+      //Auto filling the form using the information returned from the API
+      this.userFormDetails.controls['name'].setValue(res.name);
+      this.userFormDetails.controls['email'].setValue(res.email);
+      this.userFormDetails.controls['number'].setValue(res.contact);
+      this.userFormDetails.controls['salary'].setValue(res.salary);
     });
   }
 
+  //post form details to the API
   postDetails() {
-    this.employeeModalObj.name = this.formValue.value.name;
-    this.employeeModalObj.contact = this.formValue.value.number;
-    this.employeeModalObj.email = this.formValue.value.email;
-    this.employeeModalObj.salary = this.formValue.value.salary;
+    this.employeeModalObj.name = this.userFormDetails.value.name;
+    this.employeeModalObj.contact = this.userFormDetails.value.number;
+    this.employeeModalObj.email = this.userFormDetails.value.email;
+    this.employeeModalObj.salary = this.userFormDetails.value.salary;
 
     this.api.postDetails(this.employeeModalObj).subscribe((res) => {
       console.log(res);
     });
-    console.log(this.formValue.valid);
+    console.log(this.userFormDetails.valid);
     this.router.navigateByUrl('/');
   }
 
+  //updating form details to the existing one 
   async updateDetails() {
-    this.employeeModalObj.name = this.formValue.value.name;
-    this.employeeModalObj.contact = this.formValue.value.number;
-    this.employeeModalObj.email = this.formValue.value.email;
-    this.employeeModalObj.salary = this.formValue.value.salary;
+    this.employeeModalObj.name = this.userFormDetails.value.name;
+    this.employeeModalObj.contact = this.userFormDetails.value.number;
+    this.employeeModalObj.email = this.userFormDetails.value.email;
+    this.employeeModalObj.salary = this.userFormDetails.value.salary;
    
     this.api.updateDetails(await this.api.idDetails, this.employeeModalObj).subscribe((res) => {
       console.log(res);
@@ -78,14 +84,8 @@ export class EditUserComponent implements OnInit,OnDestroy {
     this.router.navigateByUrl('/');
   }
 
-  formValidation(control: FormControl) {
-    if (control.value != null && control.value.indexOf(' ') != -1) {
-      return { noSpaceAllowed: true };
-    }
-    return null;
-  }
-
+  
   async ngOnDestroy() {
-    this.api.updateDetails(await this.api.idDetails, this.employeeModalObj).unsubscribe()
+    this.allDetails.unsubscribe()
   }
 }
