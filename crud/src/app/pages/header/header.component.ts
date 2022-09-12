@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit,SimpleChanges } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 
 @Component({
@@ -6,13 +6,16 @@ import { ApiService } from 'src/app/shared/api.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnChanges {
   
   constructor(private api: ApiService,) { }
 
   ngOnInit(): void {
     
   }
+  ngOnChanges(changes:SimpleChanges) {
+    console.log(changes)
+}
   addDetails(){
     this.api.idDetails=null;
     this.api.isShowSaveButton = true;

@@ -1,35 +1,41 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
-
 
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
-
-export class UserDetailsComponent implements OnInit ,OnDestroy{
+export class UserDetailsComponent implements OnInit, OnDestroy, OnChanges {
   allDetails!: any;
+  unSubscribeAPICalls!: any;
   rows: any;
+
   constructor(private api: ApiService) {}
 
+  ngOnChanges() {
+    console.log('changes made');
+  }
   ngOnInit(): void {
     this.getAllDetails();
+    console.log('onInit Called');
   }
 
   //Get all form details
   getAllDetails() {
-    this.api.getDetails().subscribe((res) => {
+    this.unSubscribeAPICalls = this.api.getDetails().subscribe((res) => {
       this.allDetails = res;
     });
   }
 
   //deleting the particular form data using row index
   deleteUser(row: any) {
-    this.api.deleteDetails(row.id).subscribe((res) => {
-      alert('user Removed');
-      this.getAllDetails();
-    });
+    this.unSubscribeAPICalls = this.api
+      .deleteDetails(row.id)
+      .subscribe((res) => {
+        alert('user Removed');
+        this.getAllDetails();
+      });
   }
 
   //edit the particular form data using row index
@@ -40,8 +46,8 @@ export class UserDetailsComponent implements OnInit ,OnDestroy{
     this.api.isShowUpdateButton = true;
   }
 
-  ngOnDestroy():any {
-    this.allDetails.unsubscribe()
-
+  ngOnDestroy(): any {
+    this.unSubscribeAPICalls.unsubscribe();
+    console.log('page destroyed');
   }
 }
