@@ -7,9 +7,10 @@ import { ApiService } from 'src/app/shared/api.service';
   styleUrls: ['./user-details.component.scss'],
 })
 export class UserDetailsComponent implements OnInit, OnDestroy, OnChanges {
-  allDetails!: any;
-  unSubscribeAPICalls!: any;
-  rows: any;
+  
+  public allDetails!: any;
+  private unSubscribeAPICalls!: any;
+  private rows: any;
 
   constructor(private api: ApiService) {}
 

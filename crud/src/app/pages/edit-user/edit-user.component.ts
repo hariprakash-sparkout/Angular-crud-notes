@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
@@ -12,16 +18,15 @@ import { OnDestroy } from '@angular/core';
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.scss'],
 })
+export class EditUserComponent implements OnInit, OnDestroy, OnChanges {
+  public userFormDetails!: FormGroup;
+  private employeeModalObj: EmployeeModal = new EmployeeModal();
+  private allDetails!: any;
+  public showSaveButton!: boolean;
+  public showUpdateButton!: boolean;
+  private isFormValid!: boolean;
+  private unSubscribeAPICalls: any;
 
-export class EditUserComponent implements OnInit, OnDestroy ,OnChanges {
-  userFormDetails!: FormGroup;
-  employeeModalObj: EmployeeModal = new EmployeeModal();
-  allDetails!: any;
-  showSaveButton!: boolean;
-  showUpdateButton!: boolean;
-   isFormValid!: boolean;
-  unSubscribeAPICalls: any;
-  
   constructor(
     private formbuilder: FormBuilder,
     private api: ApiService,
@@ -29,7 +34,7 @@ export class EditUserComponent implements OnInit, OnDestroy ,OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-      console.log(changes)
+    console.log(changes);
   }
 
   async ngOnInit() {
@@ -65,26 +70,23 @@ export class EditUserComponent implements OnInit, OnDestroy ,OnChanges {
 
   //post form details to the API
   postDetails() {
-    this.employeeModalObj.name = this.userFormDetails.value.name;
-    this.employeeModalObj.contact = this.userFormDetails.value.number;
-    this.employeeModalObj.email = this.userFormDetails.value.email;
-    this.employeeModalObj.salary = this.userFormDetails.value.salary;
-
+    
+    this.employeeModal();
+    
     this.unSubscribeAPICalls = this.api
       .postDetails(this.employeeModalObj)
       .subscribe((res) => {
         console.log(res);
       });
+
     console.log(this.userFormDetails.valid);
-    // this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
   }
 
   //updating form details to the existing one
   async updateDetails() {
-    this.employeeModalObj.name = this.userFormDetails.value.name;
-    this.employeeModalObj.contact = this.userFormDetails.value.number;
-    this.employeeModalObj.email = this.userFormDetails.value.email;
-    this.employeeModalObj.salary = this.userFormDetails.value.salary;
+
+    this.employeeModal();
 
     this.unSubscribeAPICalls = this.api
       .updateDetails(await this.api.idDetails, this.employeeModalObj)
@@ -92,7 +94,16 @@ export class EditUserComponent implements OnInit, OnDestroy ,OnChanges {
         console.log(res);
       });
 
-    // this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/');
+  }
+
+  employeeModal() {
+
+    this.employeeModalObj.name = this.userFormDetails.value.name;
+    this.employeeModalObj.contact = this.userFormDetails.value.number;
+    this.employeeModalObj.email = this.userFormDetails.value.email;
+    this.employeeModalObj.salary = this.userFormDetails.value.salary;
+
   }
 
   ngOnDestroy() {
